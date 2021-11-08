@@ -5,6 +5,7 @@ import { Badge } from '@mui/material';
 
 const Container = styled.div`
     height: 60px;
+    margin-bottom: 20px;
 `
 
 const Wrapper = styled.div`
