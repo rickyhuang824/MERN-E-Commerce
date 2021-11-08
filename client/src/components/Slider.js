@@ -1,5 +1,7 @@
 import { ArrowLeftOutlined, ArrowRightOutlined } from "@mui/icons-material";
 import styled from "styled-components";
+import { useState } from 'react';
+import { sliderItems } from "../data";
 
 const Container = styled.div`
   width: 100%;
@@ -11,7 +13,8 @@ const Container = styled.div`
 const Wrapper = styled.div`
   height: 100%;
   display: flex;
-  transform: translateX(0vw);
+  transform: translateX(${(props) => props.slideIndex * -100}vw);
+  transition: all 1.5s ease;
 `
 
 const Slide = styled.div`
@@ -72,44 +75,38 @@ const Arrow = styled.div`
   z-index: 2;
 `
 const Slider = () => {
+
+  const [slideIndex, setSlideIndex] = useState(0);
+
+  const handleClick = (direction) => {
+    if (direction === 'left') {
+      setSlideIndex(slideIndex > 0 ? slideIndex - 1 : 2)
+    } else {
+      setSlideIndex(slideIndex < 2 ? slideIndex + 1 : 0) 
+    }
+  };
   return (
       <Container>
-          <Arrow direction="left">
+          <Arrow direction="left" onClick={() => { handleClick("left") }}>
               <ArrowLeftOutlined />
           </Arrow>
-          <Wrapper>
-            <Slide bg="f5fafd">
-              <ImgContainer>
-                <Image src="https://i2.wp.com/xoromedia.com/wp-content/uploads/2018/03/featured-thrift-shopping.png?resize=1024%2C512&ssl=1"/>
-              </ImgContainer>
-              <InfoContainer>
-                <Title>SUMMER SALE</Title>
-                <Description>DON'T COMPROMISE ON STYLES! GET FLAT 30% OFF FOR NEW ARRIVALS.</Description>
-                <Button>SHOW NOW</Button>
-              </InfoContainer>
-            </Slide>
-            <Slide bg="fcf1ed">
-              <ImgContainer>
-                <Image src="https://i2.wp.com/xoromedia.com/wp-content/uploads/2018/03/featured-thrift-shopping.png?resize=1024%2C512&ssl=1"/>
-              </ImgContainer>
-              <InfoContainer>
-                <Title>Winter SALE</Title>
-                <Description>DON'T COMPROMISE ON STYLES! GET FLAT 30% OFF FOR NEW ARRIVALS.</Description>
-                <Button>SHOW NOW</Button>
-              </InfoContainer>
-            </Slide>
-            <Slide bg="fbf0f4">
-              <ImgContainer>
-                <Image src="https://i2.wp.com/xoromedia.com/wp-content/uploads/2018/03/featured-thrift-shopping.png?resize=1024%2C512&ssl=1"/>
-              </ImgContainer>
-              <InfoContainer>
-                <Title>Poppular SALE</Title>
-                <Description>DON'T COMPROMISE ON STYLES! GET FLAT 30% OFF FOR NEW ARRIVALS.</Description>
-                <Button>SHOW NOW</Button>
-              </InfoContainer>
-            </Slide>
+          <Wrapper slideIndex={slideIndex}>
+            {sliderItems.map((sliderItem) => {
+              return (
+                <Slide bg={sliderItem.bg}>
+                  <ImgContainer>
+                    <Image src={sliderItem.img}/>
+                  </ImgContainer>
+                  <InfoContainer>
+                    <Title>{sliderItem.title}</Title>
+                    <Description>{sliderItem.description}</Description>
+                    <Button>SHOW NOW</Button>
+                  </InfoContainer>
+                </Slide>
+              )
+            })}
           </Wrapper>
-          <Arrow direction="right">
+          <Arrow direction="right" onClick={() => { handleClick("right")}}>
               <ArrowRightOutlined />
           </Arrow>
       </Container>
