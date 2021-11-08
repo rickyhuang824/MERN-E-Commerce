@@ -39,3 +39,38 @@ export const categories = [
         title: 'JACKETS',
     },
 ]
+
+export const popularProducts = [
+    {
+        id: 1,
+        img: "/asset/products/hoodie-1.jpg"
+    },
+    {
+        id: 2,
+        img: "/asset/products/jacket-1.jpg"
+    },
+    {
+        id: 3,
+        img: "/asset/products/jacket-2.jpg"
+    },
+    {
+        id: 3,
+        img: "/asset/products/sweater-1.jpg"
+    },
+    {
+        id: 5,
+        img: "/asset/products/sweater-2.jpg"
+    },
+    {
+        id: 6,
+        img: "/asset/products/t-shirt-1.jpg"
+    },
+    {
+        id: 7,
+        img: "/asset/products/t-shirt-2.jpg"
+    },
+    {
+        id: 8,
+        img: "/asset/products/t-shirt-3.jpg"
+    },
+]
