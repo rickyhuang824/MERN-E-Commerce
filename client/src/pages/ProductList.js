@@ -1,31 +1,32 @@
-import styled from 'styled-components';
-import Announcement from '../components/Announcement';
-import Footer from '../components/Footer';
-import Navbar from '../components/Navbar';
-import Newsletter from '../components/Newsletter';
-import Products from '../components/Products';
+import styled from 'styled-components'
+import Announcement from '../components/Announcement'
+import Footer from '../components/Footer'
+import Navbar from '../components/Navbar'
+import Newsletter from '../components/Newsletter'
+import Products from '../components/Products'
 
-const Container = styled.div``;
+const Container = styled.div``
+
 const Title = styled.h1`
     margin: 20px;
-`;
-const FliterContainer = styled.div`
+`
+const FilterContainer = styled.div`
     display: flex;
     justify-content: space-between;
-`;
-const Fliter = styled.div`
+`
+const Filter = styled.div`
     margin: 20px;
-`;
-const FliterName = styled.span`
+`
+const FilterName = styled.span`
     font-size: 20px;
     font-weight: 600;
     margin-right: 20px;
-`;
+`
 const Select = styled.select`
     padding: 10px;
     margin-right: 20px;
-`;
-const Option = styled.option``;
+`
+const Option = styled.option``
 
 const ProductList = () => {
     return (
@@ -33,11 +34,11 @@ const ProductList = () => {
             <Navbar />
             <Announcement />
             <Title>Dresses</Title>    
-            <FliterContainer>
-                <Fliter>
-                    <FliterName>
+            <FilterContainer>
+                <Filter>
+                    <FilterName>
                         Filter Products:
-                    </FliterName>
+                    </FilterName>
                     <Select>
                         <Option disabled selected>
                             Color
@@ -56,18 +57,18 @@ const ProductList = () => {
                         <Option>L</Option>
                         <Option>L</Option>
                     </Select>
-                </Fliter>
-                <Fliter>
-                    <FliterName>
+                </Filter>
+                <Filter>
+                    <FilterName>
                         Sort Products:
-                    </FliterName>
+                    </FilterName>
                     <Select>
                         <Option selected>Newest</Option>
                         <Option>Price (asc)</Option>
                         <Option>Price (desc)</Option>
                     </Select>
-                </Fliter>
-            </FliterContainer>
+                </Filter>
+            </FilterContainer>
             <Products />
             <Newsletter />
             <Footer />
