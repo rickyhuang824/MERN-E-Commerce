@@ -1,7 +1,7 @@
 const router = require("express").Router()
 const User = require("../models/User")
 const CryptoJS = require("crypto-js")
-const Jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken")
 
 router.post("/register", async (req, res)=>{
     const newUser = new User({
@@ -41,7 +41,7 @@ router.post("/login", async (req, res) => {
 
         const  { password, ...other} = user._doc
 
-        accessToken = Jwt.sign(
+        accessToken = jwt.sign(
             {
                 id: user._id,
                 isAdmin: user.isAdmin,
