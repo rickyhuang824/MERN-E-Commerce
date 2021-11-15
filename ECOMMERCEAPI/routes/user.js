@@ -1,6 +1,5 @@
 const router = require("express").Router()
 const User = require("../models/User")
-const { route } = require("./auth")
 const {verifyTokenAndAuthorization, verifyTokenAndAdmin} = require("./verifyToken")
 
 // Update
