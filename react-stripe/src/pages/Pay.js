@@ -3,6 +3,8 @@ import { Button } from '@mui/material'
 import styled from "styled-components"
 import StripeCheckout from 'react-stripe-checkout';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
+
 
 const KEY= process.env.REACT_APP_STRIP_PUBLIC_KEY
 const Container = styled.div`
@@ -12,41 +14,47 @@ const Container = styled.div`
     height: 100vh;
 `
 export const Pay = () => {
-    const [stripToken, setstripToken] = useState(null)
+    const [stripeToken, setStripeToken] = useState(null)
+    const navigate = useNavigate()
 
     const onToken = (token) => {
-        setstripToken(token)
+        setStripeToken(token)
     }
 
     useEffect(() => {
         const makeRequest = async () => {
             try {
                const res = await axios.post("http://localhost:8080/api/checkout/payment", {
-                   tokenId: stripToken.id,
+                   tokenId: stripeToken.id,
                    amount: 2000,
                })
                console.log(res);
+               navigate('/success')
             } catch (err) {
                console.log(err); 
             }
         }
-        stripToken && makeRequest()
-    }, [stripToken])
+        stripeToken && makeRequest()
+    }, [stripeToken, navigate])
 
     return (
         <Container>
-            <StripeCheckout
-            name="R.H Shop"
-            image="https://avatars.githubusercontent.com/u/32448535?v=4"
-            billingAddress
-            shippingAddress
-            description = " Your total is $20"
-            amount={2000}
-            token={onToken}
-            stripeKey={KEY}
-            >
-                <Button>Pay Now</Button>
-            </StripeCheckout>
+            {stripeToken ? (<span>Processing, Please wait...</span>)
+                : (
+                    <StripeCheckout
+                    name="R.H Shop"
+                    image="https://avatars.githubusercontent.com/u/32448535?v=4"
+                    billingAddress
+                    shippingAddress
+                    description = " Your total is $20"
+                    amount={2000}
+                    token={onToken}
+                    stripeKey={KEY}
+                    >
+                        <Button>Pay Now</Button>
+                    </StripeCheckout>
+                )
+            }
         </Container>        
     )
 }
