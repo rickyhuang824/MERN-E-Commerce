@@ -38,9 +38,9 @@ router.delete("/:id", verifyTokenAndAdmin, async(req, res) => {
 })
 
 // GET USER ORDERS
-router.get("/find/:userid", verifyTokenAndAuthorization, async (req, res) => {
+router.get("/find/:userId", verifyTokenAndAuthorization, async (req, res) => {
     try {
-       const Orders = await Orders.find({ userId: req.params.userId }) 
+       const Orders = await Order.find({ userId: req.params.userId }) 
        res.status(200).json(Orders)
     } catch (err) {
        res.status(500).json(err) 
