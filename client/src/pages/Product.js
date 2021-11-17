@@ -5,6 +5,10 @@ import Footer from '../components/Footer'
 import Navbar from '../components/Navbar'
 import Newsletter from '../components/Newsletter'
 import { mobile } from '../responsive'
+import { useLocation } from 'react-router'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
+import { publicRequest } from '../requestMethods'
 
 const Container = styled.div``
 const Wrapper = styled.div`
@@ -103,42 +107,76 @@ const Button = styled.button`
 
 
 const Product = () => {
+    const location = useLocation()
+    const id = location.pathname.split("/")[2]
+    const [product, setProduct] = useState({})
+    const [quantity, setQuantity] = useState(1)
+    const [color, setColor] = useState("")
+    const [size, setSize] = useState("")
+
+    const handleQuantity = (type) => {
+        if (type === "dec") {
+            if (quantity > 1)
+            {
+                setQuantity(quantity - 1)
+            }
+        } else {
+            setQuantity(quantity + 1)
+        }
+    }
+
+    const handleClick = () => {
+        //update cart
+    }
+
+    useEffect(() => {
+        const getProduct = async () => {
+            try {
+               const res = await publicRequest.get(`/products/find/${id}`)
+               setProduct(res.data)
+            } catch (err) {
+               console.log(err); 
+            }
+        }
+        getProduct()
+    }, [id])
+
+
     return (
         <Container>
             <Navbar />
             <Announcement />
             <Wrapper>
                 <ImageContainer>
-                    <Image src='/asset/products/hoodie-1.jpg'/>
+                    <Image src={product.img}/>
                 </ImageContainer>
                 <InfoContainer>
-                    <Title>Hoodie</Title>
-                    <Description>The Cloud Cotton Hoodie is the last hoodie that you will ever want to own. Our Cloud Cotton fabric blend has been developed to create the softest hoodie in the world using organic cotton and recycled water bottles. It is fully manufactured in the USA down to the yarn.</Description>
-                    <Price>$ 20</Price>
+                    <Title>{product.title}</Title>
+                    <Description>{product.desc}</Description>
+                    <Price>{product.price}</Price>
                     <FilterContainer>
                         <Filter>
                             <FilterTitle>Color</FilterTitle>
-                            <FilterColor color="black"></FilterColor>
-                            <FilterColor color="blue"></FilterColor>
-                            <FilterColor color="grey"></FilterColor>
+                            {
+                                product.color?.map(c => <FilterColor color={c} key={c} onClick={() => setColor(c)}></FilterColor>)
+                            }
                         </Filter>
                         <Filter>
                             <FilterTitle>Size</FilterTitle>
-                            <FilterSize>
-                                <FilterSizeOption>XS</FilterSizeOption>
-                                <FilterSizeOption>S</FilterSizeOption>
-                                <FilterSizeOption>M</FilterSizeOption>
-                                <FilterSizeOption>L</FilterSizeOption>
+                            <FilterSize onChange={(e) => setSize(e.target.value)}>
+                                {
+                                    product.size?.map(s => <FilterSizeOption key={s}>{s.toUpperCase()}</FilterSizeOption>)
+                                }
                             </FilterSize>
                         </Filter>
                     </FilterContainer>
                     <AddContainer>
                         <AmountContainer>
-                            <Remove />
-                            <Amount>1</Amount>
-                            <Add />
+                            <Remove onClick={() => handleQuantity("dec")}/>
+                            <Amount>{quantity}</Amount>
+                            <Add onClick={() => handleQuantity("inc")}/>
                         </AmountContainer>
-                        <Button>ADD TO CART</Button>
+                        <Button onClick={handleClick}>ADD TO CART</Button>
                     </AddContainer>
                 </InfoContainer>
             </Wrapper>
