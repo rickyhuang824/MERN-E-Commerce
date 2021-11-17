@@ -27,16 +27,19 @@ export const categories = [
         id: 1,
         img: "/asset/categories/shirt.jpg",
         title: 'SHIRT STYLE',
+        cat: "shirt",
     },
     {
         id: 2,
         img: "/asset/categories/sweater.jpg",
         title: 'SWEATER LOVE',
+        cat: "sweater",
     },
     {
         id: 3,
         img: "/asset/categories/jacket.jpg",
         title: 'JACKETS',
+        cat: "jackets"
     },
 ]
 
@@ -54,7 +57,7 @@ export const popularProducts = [
         img: "/asset/products/jacket-2.jpg"
     },
     {
-        id: 3,
+        id: 4,
         img: "/asset/products/sweater-1.jpg"
     },
     {
