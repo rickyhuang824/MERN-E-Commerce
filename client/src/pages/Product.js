@@ -9,6 +9,8 @@ import { useLocation } from 'react-router'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { publicRequest } from '../requestMethods'
+import { useDispatch } from 'react-redux'
+import { addProduct } from '../redux/cartRedux'
 
 const Container = styled.div``
 const Wrapper = styled.div`
@@ -113,6 +115,7 @@ const Product = () => {
     const [quantity, setQuantity] = useState(1)
     const [color, setColor] = useState("")
     const [size, setSize] = useState("")
+    const dispatch = useDispatch()
 
     const handleQuantity = (type) => {
         if (type === "dec") {
@@ -126,7 +129,7 @@ const Product = () => {
     }
 
     const handleClick = () => {
-        //update cart
+        dispatch(addProduct({ ...product, quantity, color, size }))
     }
 
     useEffect(() => {

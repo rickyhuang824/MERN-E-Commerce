@@ -27,7 +27,7 @@ export const categories = [
         id: 1,
         img: "/asset/categories/shirt.jpg",
         title: 'SHIRT STYLE',
-        cat: "shirt",
+        cat: "t-shirt",
     },
     {
         id: 2,
@@ -39,7 +39,7 @@ export const categories = [
         id: 3,
         img: "/asset/categories/jacket.jpg",
         title: 'JACKETS',
-        cat: "jackets"
+        cat: "jacket"
     },
 ]
 
