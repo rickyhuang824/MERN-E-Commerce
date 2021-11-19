@@ -29,7 +29,7 @@ export const Success = () => {
         const createOrder = async () => {
             try {
                const res = await userRequest.post("/orders", {
-                    usreId: currentUser._id,
+                    userId: currentUser._id,
                     products: cart.products.map((item) => ({
                         productId: item._id,
                         quantity: item._quantity,

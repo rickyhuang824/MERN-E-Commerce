@@ -12,6 +12,7 @@ import {
 } from "react-router-dom"
 import { Success } from "./pages/Success";
 import { useSelector } from "react-redux";
+import NotFound from "./pages/NotFound";
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
         <Route path="login" element= { user ? <Navigate to="/" /> : <Login /> } /> 
         <Route path="register" element= { user ? <Navigate to="/" /> : <Register /> } /> 
         <Route path="success" element= { <Success /> } /> 
+        <Route path="*" element={<NotFound/>} />
       </Routes>
     </Router>
   )
